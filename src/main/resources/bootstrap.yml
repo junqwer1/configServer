@@ -1,19 +1,21 @@
 server:
   port: 3100
 
+# 항상 필수! 설정 파일의 이름의 기준 (spring.application.name)
 spring:
   application:
     name: config-server
 
   profiles:
-    active: native,git
+    active: native, git
 
   cloud:
     config:
       server:
-        native:
-          search-locations: classpath:/configs
-        git: # 원격 레포지토리에 설정파일 조회
-          uri: https://github.com/junqwer1/projectConfigs.git # 원격 레포지토리의 주소
-          searchPaths: configs
+        native: # 설정 서버에 있는 특정 경로로 설정 파일을 넣어줌
+          search-locations: classpath:/configs # resource.configs package
+        git: # 원격 레포지토리에서 설정 파일 조회
+          # uri - 자동적으로 원격 레포지토리 주소에 있는 application 이름 확인 후 설정 파일 가져옴
+          uri: https://github.com/junqwer1/projectConfigs.git
+          searchPaths: configs # 추후 uri 레포지토리에 configs 폴더 추가 예정
           default-label: master
